@@ -1,0 +1,27 @@
+# Dueños de código para el monorepo SobraCero.
+# Reemplaza @usuario1 ... @usuario6 por los usuarios reales de GitHub de tu equipo.
+
+# Dev 1 — Arquitectura Base, Backend, Core, Layout y Auth
+*                                                    @usuario1
+/sobracero-backend/                                  @usuario1
+/sobracero-frontend/src/app/core/                    @usuario1
+/sobracero-frontend/src/app/shared/                  @usuario1
+/sobracero-frontend/src/app/layout/                  @usuario1
+/sobracero-frontend/src/app/features/auth/           @usuario1
+/sobracero-frontend/src/app/features/notificaciones/ @usuario1
+
+# Dev 2 — Landing e Impacto Público
+/sobracero-frontend/src/app/features/landing/        @usuario2
+
+# Dev 3 — Consumidor
+/sobracero-frontend/src/app/features/consumidor/     @usuario3
+
+# Dev 4 — Comercio
+/sobracero-frontend/src/app/features/comercio/       @usuario4
+
+# Dev 5 — Organización Social
+/sobracero-frontend/src/app/features/organizacion/   @usuario5
+
+# Dev 6 — Administración e Impacto
+/sobracero-frontend/src/app/features/admin/          @usuario6
+/sobracero-frontend/src/app/features/impacto/        @usuario6

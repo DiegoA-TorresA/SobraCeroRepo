@@ -1,0 +1,25 @@
+# IDEs y Editores
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Herramientas de IA y agentes locales
+.agents/
+.gemini/
+
+# Archivos del sistema
+Thumbs.db
+.DS_Store
+
+# Backend (Spring Boot / Maven)
+sobracero-backend/target/
+sobracero-backend/.mvn/wrapper/maven-wrapper.jar
+
+# Frontend (Angular / Node)
+sobracero-frontend/node_modules/
+sobracero-frontend/dist/
+sobracero-frontend/.angular/cache/
+sobracero-frontend/npm-debug.log*
+sobracero-frontend/yarn-error.log*
+sobracero-frontend/.history/
