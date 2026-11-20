@@ -41,7 +41,7 @@
           aria-valuemax="100"
           [attr.aria-label]="'Avance hacia la meta: ' + i.avanceMetaPct + '%'"
         >
-          <span class="barra__relleno" [style.width.%]="avance()"></span>
+          <span class="barra__relleno" [style.transform]="'scaleX(' + escalaBarra() + ')'"></span>
         </div>
         <p class="ip-meta__pct">{{ i.avanceMetaPct }} % de la meta</p>
       </div>

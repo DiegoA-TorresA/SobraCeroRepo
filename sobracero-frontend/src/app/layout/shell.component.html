@@ -21,8 +21,10 @@
       <button
         type="button"
         class="perfil__btn"
-        (click)="menuPerfilAbierto.set(!menuPerfilAbierto())"
-        [attr.aria-expanded]="menuPerfilAbierto()"
+        (click)="perfilAbierto.set(true)"
+        aria-haspopup="dialog"
+        [attr.aria-expanded]="perfilAbierto()"
+        aria-label="Ver mi perfil"
       >
         <span class="avatar">{{ iniciales() }}</span>
         <span class="perfil__texto">
@@ -30,13 +32,13 @@
           <span class="perfil__rol">{{ nombreRol() }}</span>
         </span>
       </button>
-      @if (menuPerfilAbierto()) {
-        <div class="perfil__menu" role="menu">
-          <p class="perfil__correo">{{ sesion.usuario()?.correo }}</p>
-          <button type="button" role="menuitem" (click)="cerrarSesion()">Cerrar sesión</button>
-        </div>
-      }
     </div>
+    <app-perfil-panel
+      [(abierto)]="perfilAbierto"
+      [nombreRol]="nombreRol()"
+      [iniciales]="iniciales()"
+      [notificacionesSinLeer]="notis.sinLeer()"
+    />
   </div>
 </header>
 

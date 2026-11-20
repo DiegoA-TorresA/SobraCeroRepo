@@ -40,7 +40,21 @@ import { NotificadorService } from '@core/utils/notificador.service';
       background: var(--superficie);
       box-shadow: var(--sombra-2);
       border-left: 4px solid var(--info);
-      animation: entrar 0.2s ease-out;
+      /* Transición (no keyframes): si llegan varios avisos seguidos, se reajusta sin saltos */
+      transition:
+        opacity 300ms var(--ease-out),
+        transform 300ms var(--ease-out);
+      @starting-style {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .toast {
+        @starting-style {
+          transform: none;
+        }
+      }
     }
     .toast--exito {
       border-color: var(--verde);
@@ -58,12 +72,6 @@ import { NotificadorService } from '@core/utils/notificador.service';
       line-height: 1;
       cursor: pointer;
       color: var(--texto-suave);
-    }
-    @keyframes entrar {
-      from {
-        transform: translateY(8px);
-        opacity: 0;
-      }
     }
     @media (min-width: 768px) {
       .toasts {

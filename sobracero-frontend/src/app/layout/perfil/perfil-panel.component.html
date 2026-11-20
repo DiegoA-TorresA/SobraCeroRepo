@@ -1,0 +1,90 @@
+<dialog
+  #dlg
+  class="pp"
+  [attr.data-estado]="estado()"
+  aria-labelledby="pp-nombre"
+  (cancel)="alCancelar($event)"
+  (close)="alCerrarDialogo()"
+>
+  <div #fondo class="pp__fondo" (click)="cerrar()" aria-hidden="true"></div>
+
+  <section #hoja class="pp__hoja">
+    <!-- Zona de arrastre (agarre + cabecera). En celular se arrastra hacia abajo para cerrar. -->
+    <div
+      class="pp__zona"
+      (pointerdown)="alPresionar($event)"
+      (pointermove)="alMover($event)"
+      (pointerup)="alSoltar($event)"
+      (pointercancel)="alSoltar($event)"
+    >
+      <span class="pp__agarre" aria-hidden="true"></span>
+      <button
+        type="button"
+        class="pp__cerrar"
+        (click)="cerrar()"
+        aria-label="Cerrar perfil"
+        autofocus
+      >
+        ×
+      </button>
+
+      <div class="pp__cabecera">
+        <span class="pp__avatar" aria-hidden="true">{{ iniciales() }}</span>
+        <h2 id="pp-nombre" class="pp__nombre">{{ sesion.usuario()?.nombre }}</h2>
+        <p class="pp__correo">{{ sesion.usuario()?.correo }}</p>
+        <div class="pp__chips">
+          <span class="pp__rol">{{ nombreRol() }}</span>
+          @if (estadoCuenta(); as e) {
+            <app-estado-badge [estado]="e" />
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="pp__cuerpo">
+      @if (resumen(); as r) {
+        <p class="pp__bio">{{ r.bio }}</p>
+        <dl class="pp__stats">
+          @for (s of r.estadisticas; track s.etiqueta) {
+            <div class="pp__stat">
+              <dt>{{ s.etiqueta }}</dt>
+              <dd>{{ s.valor }}</dd>
+            </div>
+          }
+        </dl>
+        @if (r.datos.length) {
+          <dl class="pp__datos">
+            @for (d of r.datos; track d.etiqueta) {
+              <div>
+                <dt>{{ d.etiqueta }}</dt>
+                <dd>{{ d.valor }}</dd>
+              </div>
+            }
+          </dl>
+        }
+      } @else if (cargando()) {
+        <div class="pp__esqueleto" aria-label="Cargando perfil">
+          <span></span><span></span><span></span>
+        </div>
+      }
+
+      <div class="pp__acciones">
+        <a
+          class="btn btn--primario btn--bloque"
+          [routerLink]="sesion.rutaInicio()"
+          (click)="cerrar()"
+          >Ir a mi panel</a
+        >
+        <a class="btn btn--secundario btn--bloque" routerLink="/notificaciones" (click)="cerrar()">
+          Notificaciones
+          @if (notificacionesSinLeer() > 0) {
+            <span class="pp__contador">{{ notificacionesSinLeer() }}</span>
+          }
+        </a>
+        <button type="button" class="btn btn--peligro btn--bloque" (click)="cerrarSesion()">
+          Cerrar sesión
+        </button>
+      </div>
+    </div>
+  </section>
+</dialog>

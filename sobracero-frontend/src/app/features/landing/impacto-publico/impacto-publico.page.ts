@@ -41,6 +41,8 @@ export class ImpactoPublicoPage {
   protected readonly avance = computed(() =>
     Math.min(100, Math.max(0, this.impacto.value()?.avanceMetaPct ?? 0)),
   );
+  /** Escala de la barra (0–1). Mínimo 1 % para que se vea aunque el avance sea bajo. */
+  protected readonly escalaBarra = computed(() => Math.max(1, this.avance()) / 100);
 
   recargar(): void {
     this.impacto.reload();

@@ -83,8 +83,8 @@ import { SesionService } from '@core/auth/sesion.service';
       background: var(--texto);
       border-radius: 2px;
       transition:
-        transform 0.2s,
-        opacity 0.2s;
+        transform 200ms var(--ease-out),
+        opacity 200ms var(--ease-out);
     }
     .lh--abierto .lh__hamburguesa span:nth-child(1) {
       transform: translateY(7px) rotate(45deg);
@@ -110,6 +110,22 @@ import { SesionService } from '@core/auth/sesion.service';
       background: var(--superficie);
       border-bottom: 1px solid var(--borde);
       box-shadow: var(--sombra-2);
+      transform-origin: top center;
+      transition:
+        opacity 200ms var(--ease-out),
+        transform 200ms var(--ease-out);
+    }
+    /* El menú móvil cae 8px desde la barra al abrirse */
+    @starting-style {
+      .lh--abierto .lh__nav {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lh--abierto .lh__nav {
+        transform: none;
+      }
     }
     .lh__nav a:not(.btn) {
       padding: 0.625rem 0.5rem;
@@ -118,9 +134,17 @@ import { SesionService } from '@core/auth/sesion.service';
       font-weight: 500;
       border-radius: 8px;
     }
-    .lh__nav a:not(.btn):hover {
-      color: var(--verde-oscuro);
+    .lh__nav a:not(.btn) {
+      transition: background-color 150ms ease;
+    }
+    .lh__nav a:not(.btn):active {
       background: var(--gris-claro);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .lh__nav a:not(.btn):hover {
+        color: var(--verde-oscuro);
+        background: var(--gris-claro);
+      }
     }
     .lh__sep {
       height: 1px;

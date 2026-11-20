@@ -52,17 +52,20 @@ const EMOJI_CATEGORIA: Record<string, string> = {
       border: 1px solid var(--borde);
       border-radius: var(--radio-lg);
       overflow: hidden;
+      touch-action: manipulation;
       transition:
-        box-shadow 0.15s,
-        border-color 0.15s,
-        transform 0.1s;
+        box-shadow 150ms ease,
+        border-color 150ms ease,
+        transform var(--dur-press) var(--ease-out);
     }
-    .to:hover {
-      box-shadow: var(--sombra-2);
-      border-color: #a7f3d0;
+    @media (hover: hover) and (pointer: fine) {
+      .to:hover {
+        box-shadow: var(--sombra-2);
+        border-color: #a7f3d0;
+      }
     }
     .to:active {
-      transform: translateY(1px);
+      transform: scale(0.98);
     }
     .to--activa {
       border-color: var(--naranja);

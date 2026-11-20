@@ -10,3 +10,4 @@ export * from './ui/en-construccion.component';
 export * from './ui/mapa-selector.component';
 export * from './ui/dialogo.component';
 export * from './pipes/porcentaje-descuento.pipe';
+export * from './ui/revelar.directive';

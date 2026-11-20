@@ -1,14 +1,15 @@
+import { RevelarDirective } from '@shared/ui/revelar.directive';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 /** US23 — Registro desde la landing: llamada final. */
 @Component({
   selector: 'app-cta-final',
-  imports: [RouterLink],
+  imports: [RevelarDirective, RouterLink],
   template: `
     <section class="cta" aria-labelledby="cta-titulo">
       <div class="contenedor">
-        <div class="cta__caja">
+        <div class="cta__caja" appRevelar>
           <div>
             <h2 id="cta-titulo">Ahorra hoy y evita que se pierda comida.</h2>
             <p>Crear tu cuenta toma menos de un minuto.</p>

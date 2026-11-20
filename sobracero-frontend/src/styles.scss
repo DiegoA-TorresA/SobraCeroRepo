@@ -39,6 +39,15 @@
   --sombra-1: 0 1px 2px rgba(17, 24, 39, 0.06), 0 1px 3px rgba(17, 24, 39, 0.08);
   --sombra-2: 0 8px 24px rgba(17, 24, 39, 0.12);
   --fuente: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Movimiento (Emil Kowalski): curvas fuertes; nunca ease-in en UI */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 140ms;
+  --dur-ui: 220ms;
+  /* Distancia de entrada: corta en celular, algo más en escritorio */
+  --mov-entrada: 8px;
   color-scheme: light;
 }
 
@@ -76,7 +85,6 @@
   }
 }
 
-
 *,
 *::before,
 *::after {
@@ -85,9 +93,14 @@
 html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent; /* sin destello gris/azul al tocar */
+  overflow-x: hidden; /* fallback */
+  overflow-x: clip; /* ninguna animación genera scroll horizontal (clip no rompe position: sticky) */
 }
 body {
   margin: 0;
+  overflow-x: hidden;
+  overflow-x: clip;
   font-family: var(--fuente);
   color: var(--texto);
   background: var(--fondo);
@@ -146,14 +159,18 @@ img {
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
+  touch-action: manipulation; /* sin retraso de 300 ms al tocar */
+  user-select: none;
+  -webkit-user-select: none;
   transition:
-    background 0.15s,
-    border-color 0.15s,
-    transform 0.05s,
-    box-shadow 0.15s;
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    transform var(--dur-press) var(--ease-out);
 }
+/* Respuesta al presionar: funciona con dedo y con mouse */
 .btn:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: scale(0.97);
 }
 .btn:disabled {
   opacity: 0.55;
@@ -163,33 +180,35 @@ img {
   background: var(--verde);
   color: #fff;
 }
-.btn--primario:hover:not(:disabled) {
-  background: var(--verde-oscuro);
-  box-shadow: var(--sombra-1);
-}
 .btn--acento {
   background: var(--naranja);
   color: #1f1300;
-}
-.btn--acento:hover:not(:disabled) {
-  background: #fb8c00;
 }
 .btn--secundario {
   background: var(--superficie);
   color: var(--texto);
   border-color: var(--borde);
 }
-.btn--secundario:hover:not(:disabled) {
-  border-color: var(--verde);
-  color: var(--verde-oscuro);
-}
 .btn--peligro {
   background: var(--superficie);
   color: var(--rojo);
   border-color: #fecaca;
 }
-.btn--peligro:hover:not(:disabled) {
-  background: #fef2f2;
+/* Hover solo en dispositivos con mouse: en táctil se quedaría "pegado" tras el toque */
+@media (hover: hover) and (pointer: fine) {
+  .btn--primario:hover:not(:disabled) {
+    background: var(--verde-oscuro);
+  }
+  .btn--acento:hover:not(:disabled) {
+    background: #fb8c00;
+  }
+  .btn--secundario:hover:not(:disabled) {
+    border-color: var(--verde);
+    color: var(--verde-oscuro);
+  }
+  .btn--peligro:hover:not(:disabled) {
+    background: #fef2f2;
+  }
 }
 .btn--sm {
   min-height: 34px;
@@ -207,6 +226,17 @@ img {
   color: var(--verde-oscuro);
   font-weight: 600;
   cursor: pointer;
+  touch-action: manipulation;
+  transition: opacity 150ms ease;
+}
+.enlace:active {
+  opacity: 0.6;
+}
+a,
+button,
+[role='button'],
+summary {
+  touch-action: manipulation;
 }
 
 /* ---- Formularios ---- */
@@ -323,4 +353,125 @@ table.tabla {
 }
 [id] {
   scroll-margin-top: 84px;
+}
+
+/* ==========================================================================
+   Movimiento global
+   ========================================================================== */
+@media (min-width: 768px) {
+  :root {
+    --mov-entrada: 12px;
+  }
+}
+
+/* Revelado al hacer scroll (directiva appRevelar). Solo transform + opacity. */
+.revelar {
+  opacity: 0;
+  transform: translateY(var(--mov-entrada));
+  transition:
+    opacity 480ms var(--ease-out),
+    transform 480ms var(--ease-out);
+}
+.revelar--visible {
+  opacity: 1;
+  transform: none;
+}
+/* Grupo: los hijos directos entran escalonados (retrasos no uniformes, 40–70 ms). */
+.revelar-grupo > * {
+  opacity: 0;
+  transform: translateY(var(--mov-entrada));
+  transition:
+    opacity 420ms var(--ease-out),
+    transform 420ms var(--ease-out);
+}
+.revelar-grupo.revelar--visible > * {
+  opacity: 1;
+  transform: none;
+}
+.revelar-grupo.revelar--visible > :nth-child(2) {
+  transition-delay: 50ms;
+}
+.revelar-grupo.revelar--visible > :nth-child(3) {
+  transition-delay: 90ms;
+}
+.revelar-grupo.revelar--visible > :nth-child(4) {
+  transition-delay: 120ms;
+}
+.revelar-grupo.revelar--visible > :nth-child(n + 5) {
+  transition-delay: 150ms;
+}
+
+/* Entrada de cada pantalla al navegar: corta y casi imperceptible (se ve decenas de veces al día). */
+@keyframes entrada-pagina {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes solo-aparecer {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Diálogo modal nativo (app-dialogo): escala suave desde el centro. */
+dialog.dlg {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    overlay 200ms allow-discrete,
+    display 200ms allow-discrete;
+}
+@starting-style {
+  dialog.dlg[open] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+dialog.dlg::backdrop {
+  transition: opacity 200ms var(--ease-out);
+}
+@starting-style {
+  dialog.dlg[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* Cada pantalla de la zona privada entra con un leve fundido + 6 px al navegar */
+app-shell .contenido > :not(router-outlet) {
+  display: block;
+  animation: entrada-pagina 200ms var(--ease-out) both;
+}
+/* Mientras el perfil está abierto, la página de atrás no se desplaza */
+html.pp-bloqueo,
+html.pp-bloqueo body {
+  overflow: hidden;
+}
+/* iOS hace zoom en campos con letra menor a 16 px: en táctil, nunca menos de 16 px */
+@media (pointer: coarse) {
+  input:not([type='checkbox']):not([type='radio']),
+  select,
+  textarea {
+    font-size: max(16px, 1em);
+  }
+}
+
+/* Movimiento reducido: menos y más suave, no cero. Se conserva la opacidad, se quita el desplazamiento. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --mov-entrada: 0px;
+  }
+  .btn:active:not(:disabled) {
+    transform: none;
+  }
+  dialog.dlg,
+  .revelar,
+  .revelar-grupo > * {
+    transform: none !important;
+  }
+  app-shell .contenido > :not(router-outlet) {
+    animation-name: solo-aparecer;
+  }
 }

@@ -92,8 +92,13 @@ h2 {
   font-size: 0.8125rem;
   cursor: pointer;
 }
-.chip:hover {
-  border-color: var(--verde);
+.chip:active {
+  transform: scale(0.97);
+}
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover {
+    border-color: var(--verde);
+  }
 }
 .dlg-acciones {
   display: flex;

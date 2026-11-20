@@ -1,3 +1,4 @@
+import { RevelarDirective } from '@shared/ui/revelar.directive';
 import { Component } from '@angular/core';
 import { PASOS } from '../data/contenido-landing';
 import { SeccionTituloComponent } from './seccion-titulo.component';
@@ -5,7 +6,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
 /** US22 — Cómo funciona: los 4 pasos del canal dual. */
 @Component({
   selector: 'app-como-funciona',
-  imports: [SeccionTituloComponent],
+  imports: [RevelarDirective, SeccionTituloComponent],
   template: `
     <section class="cf" id="como-funciona" aria-labelledby="cf-titulo">
       <div class="contenedor">
@@ -15,7 +16,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
           titulo="Una segunda oportunidad como venta, una tercera como donación"
           bajada="Así llega cada excedente a una mesa en lugar de a la basura."
         />
-        <ol class="cf__pasos">
+        <ol class="cf__pasos" appRevelar="grupo">
           @for (p of pasos; track p.n) {
             <li class="paso" [class.paso--dona]="p.n === 4">
               <span class="paso__n">{{ p.n }}</span>
@@ -48,13 +49,20 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
       background: var(--superficie);
       border: 1px solid var(--borde);
       border-radius: var(--radio-lg);
-      transition:
-        transform 0.15s,
-        box-shadow 0.15s;
     }
-    .paso:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--sombra-2);
+    /* Hover solo con mouse y solo sombra/borde: el transform lo usa la entrada escalonada */
+    @media (hover: hover) and (pointer: fine) {
+      .paso {
+        transition:
+          opacity 420ms var(--ease-out),
+          transform 420ms var(--ease-out),
+          box-shadow 200ms ease,
+          border-color 200ms ease;
+      }
+      .paso:hover {
+        box-shadow: var(--sombra-2);
+        border-color: var(--paso-dona-borde);
+      }
     }
     .paso--dona {
       background: var(--paso-dona-bg);

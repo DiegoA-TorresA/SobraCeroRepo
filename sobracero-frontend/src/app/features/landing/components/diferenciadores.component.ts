@@ -1,3 +1,4 @@
+import { RevelarDirective } from '@shared/ui/revelar.directive';
 import { Component } from '@angular/core';
 import { COMPARACION, DIFERENCIADORES } from '../data/contenido-landing';
 import { SeccionTituloComponent } from './seccion-titulo.component';
@@ -5,7 +6,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
 /** US24 — Diferenciadores y comparación con otras alternativas. */
 @Component({
   selector: 'app-diferenciadores',
-  imports: [SeccionTituloComponent],
+  imports: [RevelarDirective, SeccionTituloComponent],
   template: `
     <section class="df" id="diferenciadores" aria-labelledby="df-titulo">
       <div class="contenedor">
@@ -16,7 +17,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
           bajada="Otras apps solo venden con descuento; los bancos de alimentos solo donan. Nosotros hacemos las dos cosas, en automático."
         />
 
-        <div class="df__cards">
+        <div class="df__cards" appRevelar="grupo">
           @for (d of diferenciadores; track d.titulo) {
             <article>
               <span aria-hidden="true">{{ d.icono }}</span>
@@ -26,7 +27,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
           }
         </div>
 
-        <div class="tabla-scroll df__tabla">
+        <div class="tabla-scroll df__tabla" appRevelar>
           <table>
             <caption>
               Comparación con otras alternativas

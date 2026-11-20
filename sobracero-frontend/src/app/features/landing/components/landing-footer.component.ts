@@ -72,8 +72,10 @@ import { RouterLink } from '@angular/router';
       color: #d1d5db;
       text-decoration: none;
     }
-    nav a:hover {
-      color: #6ee7b7;
+    @media (hover: hover) and (pointer: fine) {
+      nav a:hover {
+        color: #6ee7b7;
+      }
     }
     .lf__legal {
       margin-top: 2.5rem;

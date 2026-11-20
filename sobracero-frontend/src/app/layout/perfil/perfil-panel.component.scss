@@ -1,0 +1,365 @@
+/* ==========================================================================
+   Panel de perfil — modal (escritorio) / panel inferior (celular)
+   Solo se animan transform y opacity. El desenfoque del fondo es fijo (no se anima).
+   ========================================================================== */
+
+dialog.pp {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--texto);
+  overflow: hidden;
+}
+dialog.pp[open] {
+  display: grid;
+  place-items: center;
+}
+dialog.pp::backdrop {
+  background: transparent; /* el fondo real es .pp__fondo, controlable durante el arrastre */
+}
+
+/* ---- Fondo difuminado ---- */
+.pp__fondo {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 14, 22, 0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 220ms var(--ease-out);
+}
+[data-estado='abierto'] .pp__fondo {
+  opacity: 1;
+}
+[data-estado='cerrando'] .pp__fondo {
+  transition-duration: 160ms;
+}
+
+/* ---- Hoja (escritorio: modal centrado con escala suave) ---- */
+.pp__hoja {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(440px, calc(100vw - 2rem));
+  max-height: min(680px, calc(100dvh - 2rem));
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 20px;
+  box-shadow: var(--sombra-2);
+  overflow: hidden;
+  /* Modal: se queda centrado, no se ancla al avatar */
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+[data-estado='abierto'] .pp__hoja {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Salida más rápida que la entrada */
+[data-estado='cerrando'] .pp__hoja {
+  transition-duration: 160ms;
+}
+
+/* ---- Zona superior / cabecera ---- */
+.pp__zona {
+  position: relative;
+  padding: 1.75rem 1.5rem 1.25rem;
+  text-align: center;
+  background: linear-gradient(180deg, var(--eyebrow-bg), transparent);
+}
+.pp__agarre {
+  display: none;
+}
+.pp__cerrar {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 44px; /* área táctil mínima */
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--texto-suave);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color 150ms ease,
+    transform var(--dur-press) var(--ease-out);
+}
+.pp__cerrar:active {
+  transform: scale(0.92);
+  background: var(--gris-claro);
+}
+.pp__cabecera {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+}
+.pp__avatar {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin-bottom: 0.5rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #34d399, var(--verde) 55%, #047857);
+  color: #fff;
+  font-size: 1.625rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow:
+    0 0 0 4px var(--superficie),
+    0 0 0 6px var(--paso-dona-borde);
+  user-select: none;
+}
+.pp__nombre {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.pp__correo {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--texto-suave);
+  overflow-wrap: anywhere;
+}
+.pp__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+}
+.pp__rol {
+  padding: 0.125rem 0.625rem;
+  border-radius: 999px;
+  background: var(--eyebrow-bg);
+  color: var(--verde-oscuro);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* ---- Cuerpo ---- */
+.pp__cuerpo {
+  display: grid;
+  gap: 1rem;
+  padding: 0.25rem 1.5rem 1.5rem;
+  overflow-y: auto;
+  overscroll-behavior: contain; /* el scroll interno no arrastra la página de atrás */
+}
+.pp__bio {
+  margin: 0;
+  text-align: center;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+}
+.pp__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+}
+.pp__stat {
+  padding: 0.75rem 0.5rem;
+  border-radius: var(--radio);
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  text-align: center;
+  min-width: 0;
+}
+.pp__stat dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--texto-suave);
+}
+.pp__stat dd {
+  margin: 0.25rem 0 0;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  color: var(--verde-oscuro);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+/* Las estadísticas entran escalonadas justo después del panel (6 px, retrasos no uniformes) */
+.pp__stat {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 320ms var(--ease-out);
+}
+[data-estado='abierto'] .pp__stat {
+  opacity: 1;
+  transform: none;
+}
+[data-estado='abierto'] .pp__stat:nth-child(1) {
+  transition-delay: 60ms;
+}
+[data-estado='abierto'] .pp__stat:nth-child(2) {
+  transition-delay: 100ms;
+}
+[data-estado='abierto'] .pp__stat:nth-child(3) {
+  transition-delay: 130ms;
+}
+.pp__datos {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--borde);
+}
+.pp__datos > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid var(--borde);
+  font-size: 0.875rem;
+}
+.pp__datos dt {
+  color: var(--texto-suave);
+}
+.pp__datos dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.pp__esqueleto {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.pp__esqueleto span {
+  height: 62px;
+  border-radius: var(--radio);
+  background: var(--gris-claro);
+  animation: pp-pulso 1.1s ease-in-out infinite alternate;
+}
+@keyframes pp-pulso {
+  to {
+    opacity: 0.5;
+  }
+}
+.pp__acciones {
+  display: grid;
+  gap: 0.5rem;
+}
+.pp__contador {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--rojo);
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 20px;
+}
+
+/* ==========================================================================
+   Celular: panel inferior (bottom sheet) que sube desde abajo
+   ========================================================================== */
+@media (max-width: 639px) {
+  dialog.pp[open] {
+    place-items: end stretch;
+  }
+  .pp__hoja {
+    width: 100%;
+    max-height: 88dvh;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 0;
+    opacity: 1;
+    transform: translate3d(0, 100%, 0);
+    /* Curva tipo iOS (Vaul): muy rápida al inicio, asentamiento suave */
+    transition: transform 500ms var(--ease-drawer);
+  }
+  [data-estado='abierto'] .pp__hoja {
+    transform: translate3d(0, 0, 0);
+  }
+  [data-estado='cerrando'] .pp__hoja {
+    transition-duration: 360ms;
+  }
+  .pp__fondo {
+    transition: opacity 500ms var(--ease-drawer);
+  }
+  [data-estado='cerrando'] .pp__fondo {
+    transition-duration: 360ms;
+  }
+  .pp__zona {
+    padding-top: 1.5rem;
+    touch-action: none; /* el arrastre vertical es nuestro, no del navegador */
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .pp__agarre {
+    display: block;
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    width: 40px;
+    height: 5px;
+    margin-left: -20px;
+    border-radius: 3px;
+    background: var(--borde);
+  }
+  .pp__avatar {
+    width: 64px;
+    height: 64px;
+    font-size: 1.375rem;
+  }
+  .pp__cuerpo {
+    padding: 0.25rem 1rem calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+  .pp__stat dd {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================================================================
+   Movimiento reducido: sin desplazamientos ni escala; solo un fundido corto.
+   El arrastre sigue funcionando (lo produce el usuario).
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .pp__hoja,
+  [data-estado='abierto'] .pp__hoja {
+    transform: none;
+    transition: opacity 150ms ease;
+  }
+  @media (max-width: 639px) {
+    .pp__hoja {
+      opacity: 0;
+    }
+    [data-estado='abierto'] .pp__hoja {
+      opacity: 1;
+    }
+  }
+  .pp__fondo {
+    transition: opacity 150ms ease;
+  }
+  .pp__stat,
+  [data-estado='abierto'] .pp__stat {
+    transform: none;
+    transition: opacity 150ms ease;
+    transition-delay: 0ms;
+  }
+  .pp__esqueleto span {
+    animation: none;
+  }
+}

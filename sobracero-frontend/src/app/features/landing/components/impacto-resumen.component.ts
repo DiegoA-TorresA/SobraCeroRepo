@@ -1,3 +1,4 @@
+import { RevelarDirective } from '@shared/ui/revelar.directive';
 import { Component, inject, input } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
@@ -11,7 +12,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
  */
 @Component({
   selector: 'app-impacto-resumen',
-  imports: [RouterLink, ContadorAnimadoComponent, SeccionTituloComponent],
+  imports: [RevelarDirective, RouterLink, ContadorAnimadoComponent, SeccionTituloComponent],
   template: `
     @if (impacto.value(); as i) {
       <section class="ir" id="impacto" aria-labelledby="ir-titulo">
@@ -21,7 +22,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
             eyebrow="Impacto en vivo"
             titulo="Lo que ya rescatamos juntos"
           />
-          <dl class="ir__grid">
+          <dl class="ir__grid" appRevelar="grupo">
             <div class="m m--principal">
               <dt>Kilos rescatados</dt>
               <dd>
@@ -64,7 +65,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
     }
     .ir__grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
       margin: 0;
     }
@@ -80,7 +81,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
     }
     dd {
       margin: 0.25rem 0 0;
-      font-size: clamp(1.75rem, 5vw, 2.75rem);
+      font-size: clamp(1.5rem, 6.5vw, 2.75rem);
       font-weight: 800;
       letter-spacing: -0.02em;
       font-variant-numeric: tabular-nums;
@@ -101,7 +102,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
     }
     @media (min-width: 900px) {
       .ir__grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
   `,

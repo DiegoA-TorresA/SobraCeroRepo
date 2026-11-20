@@ -1,5 +1,6 @@
 .af {
   width: 100%;
+  min-width: 0; /* en el contenedor flex no crece más que la pantalla */
   max-width: 440px;
 }
 .af--ancho {
@@ -42,7 +43,7 @@ form {
 
 .roles {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.5rem;
   margin-top: 1.25rem;
 }
@@ -58,12 +59,21 @@ form {
   cursor: pointer;
   font: inherit;
   text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
   transition:
-    border-color 0.15s,
-    background 0.15s;
+    border-color 150ms ease,
+    background-color 150ms ease,
+    transform var(--dur-press) var(--ease-out);
 }
-.rol:hover {
-  border-color: var(--verde);
+.rol:active {
+  transform: scale(0.97);
+}
+@media (hover: hover) and (pointer: fine) {
+  .rol:hover {
+    border-color: var(--verde);
+  }
 }
 .rol--activo {
   border-color: var(--verde);
@@ -79,6 +89,7 @@ form {
 .rol__desc {
   font-size: 0.75rem;
   color: var(--texto-suave);
+  overflow-wrap: anywhere;
 }
 
 .aviso {

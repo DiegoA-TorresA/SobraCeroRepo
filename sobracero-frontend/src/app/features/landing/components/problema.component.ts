@@ -1,3 +1,4 @@
+import { RevelarDirective } from '@shared/ui/revelar.directive';
 import { Component } from '@angular/core';
 import { CIFRAS_PROBLEMA } from '../data/contenido-landing';
 import { SeccionTituloComponent } from './seccion-titulo.component';
@@ -5,7 +6,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
 /** Contexto del problema con las cifras del informe. */
 @Component({
   selector: 'app-problema',
-  imports: [SeccionTituloComponent],
+  imports: [RevelarDirective, SeccionTituloComponent],
   template: `
     <section class="pr" aria-labelledby="pr-titulo">
       <div class="contenedor">
@@ -16,7 +17,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
           titulo="El Perú bota comida mientras 3 de cada 10 personas no acceden a ella"
           bajada="Gran parte se pierde en la distribución: alimento ya listo, a pocos metros del consumidor, que se descarta solo por acercarse a su fecha límite."
         />
-        <ul class="pr__cifras">
+        <ul class="pr__cifras" appRevelar="grupo">
           @for (c of cifras; track c.valor) {
             <li>
               <p class="pr__valor">{{ c.valor }}</p>

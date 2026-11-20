@@ -3,6 +3,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { SesionService } from '@core/auth/sesion.service';
 import { MENU_POR_ROL } from '@core/auth/rutas-por-rol';
 import { NotificacionesEstadoService } from './notificaciones-estado.service';
+import { PerfilPanelComponent } from './perfil/perfil-panel.component';
 
 const NOMBRE_ROL = {
   CONSUMIDOR: 'Consumidor',
@@ -17,7 +18,7 @@ const NOMBRE_ROL = {
  */
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, PerfilPanelComponent],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
 })
@@ -41,7 +42,8 @@ export class ShellComponent {
       .map((p) => p[0]?.toUpperCase())
       .join(''),
   );
-  protected readonly menuPerfilAbierto = signal(false);
+  /** Panel de perfil (modal en escritorio, panel inferior en celular). */
+  protected readonly perfilAbierto = signal(false);
 
   constructor() {
     this.notis.iniciarSondeo(inject(DestroyRef));
@@ -49,10 +51,5 @@ export class ShellComponent {
 
   irANotificaciones(): void {
     this.router.navigateByUrl('/notificaciones');
-  }
-
-  cerrarSesion(): void {
-    this.menuPerfilAbierto.set(false);
-    this.sesion.cerrarSesion();
   }
 }

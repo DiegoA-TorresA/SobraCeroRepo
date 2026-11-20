@@ -1,3 +1,4 @@
+import { RevelarDirective } from '@shared/ui/revelar.directive';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SEGMENTOS } from '../data/contenido-landing';
@@ -6,7 +7,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
 /** US22 + US23 — Beneficios por segmento con registro directo (rol preseleccionado). */
 @Component({
   selector: 'app-para-quien',
-  imports: [RouterLink, SeccionTituloComponent],
+  imports: [RevelarDirective, RouterLink, SeccionTituloComponent],
   template: `
     <section class="pq" id="para-quien" aria-labelledby="pq-titulo">
       <div class="contenedor">
@@ -15,7 +16,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
           eyebrow="Para quién"
           titulo="Todos ganan cuando la comida no se pierde"
         />
-        <div class="pq__grid">
+        <div class="pq__grid" appRevelar="grupo">
           @for (s of segmentos; track s.rol) {
             <article class="seg" [class]="'seg seg--' + s.rol.toLowerCase()">
               <span class="seg__icono" aria-hidden="true">{{ s.icono }}</span>

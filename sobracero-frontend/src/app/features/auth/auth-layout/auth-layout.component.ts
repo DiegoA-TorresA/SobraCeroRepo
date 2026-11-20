@@ -37,6 +37,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      min-width: 0;
       padding: 2rem 1rem;
     }
     .al__logo {

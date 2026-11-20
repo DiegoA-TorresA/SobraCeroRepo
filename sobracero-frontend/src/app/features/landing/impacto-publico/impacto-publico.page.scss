@@ -74,11 +74,20 @@ h1 {
 }
 .barra__relleno {
   display: block;
+  width: 100%;
   height: 100%;
-  min-width: 4px;
-  border-radius: inherit;
   background: linear-gradient(90deg, var(--verde), #34d399);
-  transition: width 1.2s ease-out;
+  /* scaleX en lugar de width: no recalcula el layout en cada frame */
+  transform-origin: left center;
+  transition: transform 1.2s var(--ease-out);
+  @starting-style {
+    transform: scaleX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .barra__relleno {
+    transition: none;
+  }
 }
 .ip-meta__pct {
   margin: 0.5rem 0 0;

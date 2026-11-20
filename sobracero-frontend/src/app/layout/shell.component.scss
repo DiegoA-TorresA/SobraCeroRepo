@@ -46,8 +46,25 @@
   font-size: 1.25rem;
   cursor: pointer;
 }
-.icono-btn:hover {
+.icono-btn,
+.perfil__btn {
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    background-color 150ms ease,
+    transform var(--dur-press) var(--ease-out);
+}
+.icono-btn:active,
+.perfil__btn:active {
+  transform: scale(0.95);
   background: var(--gris-claro);
+}
+@media (hover: hover) and (pointer: fine) {
+  .icono-btn:hover,
+  .perfil__btn:hover {
+    background: var(--gris-claro);
+  }
 }
 .contador {
   position: absolute;
@@ -78,9 +95,6 @@
   cursor: pointer;
   text-align: left;
 }
-.perfil__btn:hover {
-  background: var(--gris-claro);
-}
 .avatar {
   display: grid;
   place-items: center;
@@ -105,38 +119,6 @@
   font-size: 0.75rem;
   color: var(--texto-suave);
 }
-.perfil__menu {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0.5rem);
-  min-width: 220px;
-  padding: 0.5rem;
-  background: var(--superficie);
-  border: 1px solid var(--borde);
-  border-radius: var(--radio);
-  box-shadow: var(--sombra-2);
-}
-.perfil__correo {
-  margin: 0.25rem 0.5rem 0.5rem;
-  font-size: 0.8125rem;
-  color: var(--texto-suave);
-  word-break: break-all;
-}
-.perfil__menu button {
-  width: 100%;
-  padding: 0.5rem;
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-  color: var(--rojo);
-  font-weight: 600;
-}
-.perfil__menu button:hover {
-  background: #fef2f2;
-}
-
 .cuerpo {
   display: flex;
 }
@@ -179,8 +161,23 @@
   color: var(--verde-oscuro);
   font-weight: 600;
 }
+.inferior a {
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
 .inferior__icono {
   font-size: 1.25rem;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+/* Al tocar, el ícono se hunde un poco: respuesta inmediata como en una app nativa */
+.inferior a:active .inferior__icono {
+  transform: scale(0.88);
+}
+@media (prefers-reduced-motion: reduce) {
+  .inferior a:active .inferior__icono {
+    transform: none;
+  }
 }
 
 @media (min-width: 768px) {
@@ -213,11 +210,21 @@
     text-decoration: none;
     font-weight: 500;
   }
-  .lateral a:hover {
-    background: var(--gris-claro);
+  .lateral a {
+    transition:
+      background-color 150ms ease,
+      transform var(--dur-press) var(--ease-out);
+  }
+  .lateral a:active {
+    transform: scale(0.98);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .lateral a:not(.activo):hover {
+      background: var(--gris-claro);
+    }
   }
   .lateral a.activo {
-    background: #d1fae5;
+    background: var(--eyebrow-bg);
     color: var(--verde-oscuro);
     font-weight: 600;
   }

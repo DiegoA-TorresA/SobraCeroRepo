@@ -1,13 +1,14 @@
+import { RevelarDirective } from '@shared/ui/revelar.directive';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 /** US21 — Propuesta de valor. La tarjeta de la derecha ilustra el canal dual con una oferta de ejemplo. */
 @Component({
   selector: 'app-hero',
-  imports: [RouterLink],
+  imports: [RevelarDirective, RouterLink],
   template: `
     <section class="hero" id="propuesta" aria-labelledby="hero-titulo">
-      <div class="contenedor hero__grid">
+      <div class="contenedor hero__grid" appRevelar="grupo">
         <div class="hero__texto">
           <p class="eyebrow">Rescate de alimentos en Lima</p>
           <h1 id="hero-titulo">
@@ -76,7 +77,8 @@ import { RouterLink } from '@angular/router';
       padding: 3rem 0 4rem;
       background:
         radial-gradient(60rem 30rem at 85% -10%, var(--hero-grad-verde) 0%, transparent 60%),
-        radial-gradient(40rem 24rem at -10% 110%, var(--hero-grad-naranja) 0%, transparent 60%), var(--superficie);
+        radial-gradient(40rem 24rem at -10% 110%, var(--hero-grad-naranja) 0%, transparent 60%),
+        var(--superficie);
     }
     .hero__grid {
       display: grid;

@@ -1,10 +1,12 @@
+import { RevelarDirective } from '@shared/ui/revelar.directive';
 import { booleanAttribute, Component, input } from '@angular/core';
 
 /** Encabezado centrado de cada sección de la landing. */
 @Component({
   selector: 'app-seccion-titulo',
+  imports: [RevelarDirective],
   template: `
-    <div class="st" [class.st--claro]="claro()">
+    <div class="st" [class.st--claro]="claro()" appRevelar>
       <p class="st__eyebrow">{{ eyebrow() }}</p>
       <h2 [id]="idTitulo()">{{ titulo() }}</h2>
       @if (bajada()) {
