@@ -1,5 +1,5 @@
-/** Producción: URL pública del backend desplegado (Railway / Azure). */
+/** Producción: URL pública del backend desplegado (Render / Railway). */
 export const environment = {
   production: true,
-  apiUrl: 'https://TU-BACKEND.up.railway.app',
+  apiUrl: 'https://sobracero-backend.onrender.com',
 };
