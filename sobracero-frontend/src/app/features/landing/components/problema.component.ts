@@ -38,17 +38,18 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
       padding: 0;
       margin: 0;
       display: grid;
-      gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.875rem;
     }
     li {
-      padding: 1.75rem;
+      padding: 1.5rem 1.25rem;
       border-radius: var(--radio-lg);
       background: #11291f;
       border: 1px solid #1f3a2e;
     }
     .pr__valor {
       margin: 0;
-      font-size: 2.75rem;
+      font-size: clamp(2rem, 5vw, 2.75rem);
       font-weight: 800;
       color: var(--naranja);
       letter-spacing: -0.02em;
@@ -56,16 +57,25 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
     .pr__texto {
       margin: 0.25rem 0 0.75rem;
       color: #e5e7eb;
-      font-size: 1.0625rem;
+      font-size: clamp(0.9375rem, 2.5vw, 1.0625rem);
     }
     .pr__fuente {
       margin: 0;
       font-size: 0.8125rem;
       color: #9ca3af;
     }
+    @media (max-width: 767px) {
+      .pr__cifras li:last-child {
+        grid-column: span 2;
+      }
+    }
     @media (min-width: 768px) {
       .pr__cifras {
         grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+      li {
+        padding: 1.75rem;
       }
     }
   `,

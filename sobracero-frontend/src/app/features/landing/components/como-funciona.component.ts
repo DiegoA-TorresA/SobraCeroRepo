@@ -30,7 +30,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
   `,
   styles: `
     .cf {
-      padding: 5rem 0;
+      padding: 4.5rem 0;
       background: var(--fondo);
     }
     .cf__pasos {
@@ -38,12 +38,13 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
       padding: 0;
       margin: 0;
       display: grid;
-      gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.875rem;
       counter-reset: paso;
     }
     .paso {
       position: relative;
-      padding: 1.75rem 1.5rem 1.5rem;
+      padding: 1.25rem 1rem 1rem;
       background: var(--superficie);
       border: 1px solid var(--borde);
       border-radius: var(--radio-lg);
@@ -56,21 +57,21 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
       box-shadow: var(--sombra-2);
     }
     .paso--dona {
-      background: #ecfdf5;
-      border-color: #a7f3d0;
+      background: var(--paso-dona-bg);
+      border-color: var(--paso-dona-borde);
     }
     .paso__n {
       position: absolute;
-      top: 1.25rem;
-      right: 1.25rem;
-      width: 28px;
-      height: 28px;
+      top: 1rem;
+      right: 1rem;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       background: var(--gris-claro);
       font-weight: 700;
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       color: var(--texto-suave);
     }
     .paso--dona .paso__n {
@@ -78,24 +79,35 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
       color: #fff;
     }
     .paso__icono {
-      font-size: 2.25rem;
+      font-size: 1.875rem;
     }
     h3 {
-      margin: 0.75rem 0 0.5rem;
-      font-size: 1.1875rem;
+      margin: 0.5rem 0 0.375rem;
+      font-size: 1.0625rem;
+      line-height: 1.25;
     }
     p {
       margin: 0;
-      color: #4b5563;
-    }
-    @media (min-width: 640px) {
-      .cf__pasos {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      color: var(--texto-suave);
+      font-size: 0.875rem;
+      line-height: 1.4;
     }
     @media (min-width: 1024px) {
       .cf__pasos {
         grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+      }
+      .paso {
+        padding: 1.75rem 1.5rem 1.5rem;
+      }
+      .paso__icono {
+        font-size: 2.25rem;
+      }
+      h3 {
+        font-size: 1.1875rem;
+      }
+      p {
+        font-size: 0.9375rem;
       }
     }
   `,

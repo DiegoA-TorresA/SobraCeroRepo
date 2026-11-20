@@ -75,8 +75,8 @@ import { RouterLink } from '@angular/router';
       overflow: hidden;
       padding: 3rem 0 4rem;
       background:
-        radial-gradient(60rem 30rem at 85% -10%, #d1fae5 0%, transparent 60%),
-        radial-gradient(40rem 24rem at -10% 110%, #ffedd5 0%, transparent 60%), var(--superficie);
+        radial-gradient(60rem 30rem at 85% -10%, var(--hero-grad-verde) 0%, transparent 60%),
+        radial-gradient(40rem 24rem at -10% 110%, var(--hero-grad-naranja) 0%, transparent 60%), var(--superficie);
     }
     .hero__grid {
       display: grid;
@@ -88,7 +88,7 @@ import { RouterLink } from '@angular/router';
       margin: 0 0 1rem;
       padding: 0.25rem 0.75rem;
       border-radius: 999px;
-      background: #ecfdf5;
+      background: var(--eyebrow-bg);
       color: var(--verde-oscuro);
       font-weight: 600;
       font-size: 0.875rem;
@@ -105,19 +105,34 @@ import { RouterLink } from '@angular/router';
     }
     .hero__sub {
       font-size: 1.125rem;
-      color: #374151;
+      color: var(--texto-suave);
       max-width: 36rem;
       margin: 1.25rem 0 1.75rem;
     }
     .hero__ctas {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: center;
       gap: 0.75rem;
+      width: 100%;
     }
     .hero__btn {
       min-height: 52px;
       padding: 0 1.5rem;
       font-size: 1.0625rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+    @media (max-width: 540px) {
+      .hero__ctas {
+        gap: 0.5rem;
+      }
+      .hero__btn {
+        flex: 1 1 0;
+        min-height: 48px;
+        padding: 0.5rem clamp(0.5rem, 2vw, 0.875rem);
+        font-size: clamp(0.8125rem, 3.4vw, 0.9375rem);
+      }
     }
     .hero__garantias {
       list-style: none;
@@ -218,8 +233,9 @@ import { RouterLink } from '@angular/router';
     .flujo__texto {
       padding: 0.25rem 0.75rem;
       border-radius: 999px;
-      background: #fff7ed;
+      background: var(--superficie);
       color: var(--naranja-oscuro);
+      border: 1px solid var(--borde);
       font-size: 0.8125rem;
       font-weight: 600;
     }
@@ -232,7 +248,7 @@ import { RouterLink } from '@angular/router';
       max-width: 340px;
       padding: 1rem 1.125rem;
       background: var(--superficie);
-      border: 2px solid #a7f3d0;
+      border: 2px solid var(--borde);
       border-radius: 16px;
       box-shadow: var(--sombra-1);
       transform: rotate(1deg);

@@ -20,12 +20,62 @@
   --texto: #111827;
   --texto-suave: #6b7280;
 
+  --lh-bg: rgba(255, 255, 255, 0.92);
+  --eyebrow-bg: #ecfdf5;
+  --hero-grad-verde: #d1fae5;
+  --hero-grad-naranja: #ffedd5;
+  --paso-dona-bg: #ecfdf5;
+  --paso-dona-borde: #a7f3d0;
+  --seg-comercio-bg: #fff7ed;
+  --seg-comercio-borde: #fed7aa;
+  --seg-org-bg: #ecfdf5;
+  --seg-org-borde: #a7f3d0;
+  --propia-bg: #ecfdf5;
+  --cta-caja-bg: #fff7ed;
+  --cta-caja-borde: #fed7aa;
+
   --radio: 10px;
   --radio-lg: 16px;
   --sombra-1: 0 1px 2px rgba(17, 24, 39, 0.06), 0 1px 3px rgba(17, 24, 39, 0.08);
   --sombra-2: 0 8px 24px rgba(17, 24, 39, 0.12);
   --fuente: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: light;
 }
+
+/* Modo oscuro según preferencia del navegador */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #0b151e;
+    --superficie: #13222f;
+    --borde: #223749;
+    --texto: #f1f5f9;
+    --texto-suave: #94a3b8;
+    --gris-claro: #1c2e3d;
+    --blanco: #13222f;
+
+    --verde-oscuro: #34d399;
+    --naranja-oscuro: #fb923c;
+
+    --lh-bg: rgba(11, 21, 30, 0.94);
+    --eyebrow-bg: rgba(16, 185, 129, 0.16);
+    --hero-grad-verde: rgba(16, 185, 129, 0.22);
+    --hero-grad-naranja: rgba(255, 152, 0, 0.16);
+    --paso-dona-bg: rgba(16, 185, 129, 0.14);
+    --paso-dona-borde: rgba(16, 185, 129, 0.35);
+    --seg-comercio-bg: rgba(255, 152, 0, 0.1);
+    --seg-comercio-borde: rgba(255, 152, 0, 0.25);
+    --seg-org-bg: rgba(16, 185, 129, 0.1);
+    --seg-org-borde: rgba(16, 185, 129, 0.25);
+    --propia-bg: rgba(16, 185, 129, 0.16);
+    --cta-caja-bg: rgba(255, 152, 0, 0.1);
+    --cta-caja-borde: rgba(255, 152, 0, 0.3);
+
+    --sombra-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --sombra-2: 0 8px 24px rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+
 
 *,
 *::before,
@@ -177,7 +227,8 @@ textarea {
   font: inherit;
   color: inherit;
   background: var(--superficie);
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--borde);
+
   border-radius: var(--radio);
   transition:
     border-color 0.15s,

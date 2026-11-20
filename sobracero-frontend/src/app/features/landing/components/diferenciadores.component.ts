@@ -62,39 +62,51 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
   `,
   styles: `
     .df {
-      padding: 5rem 0;
+      padding: 4.5rem 0;
       background: var(--fondo);
     }
     .df__cards {
       display: grid;
-      gap: 1rem;
-      margin-bottom: 3rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.875rem;
+      margin-bottom: 2.5rem;
     }
     article {
-      padding: 1.5rem;
+      padding: 1.25rem 1rem;
       background: var(--superficie);
       border: 1px solid var(--borde);
       border-radius: var(--radio-lg);
     }
     article span {
-      font-size: 2rem;
+      font-size: 1.75rem;
     }
     h3 {
       margin: 0.5rem 0 0.375rem;
-      font-size: 1.125rem;
+      font-size: 1.0625rem;
+      line-height: 1.25;
     }
     article p {
       margin: 0;
-      color: #4b5563;
-    }
-    @media (min-width: 640px) {
-      .df__cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      color: var(--texto-suave);
+      font-size: 0.875rem;
+      line-height: 1.4;
     }
     @media (min-width: 1024px) {
       .df__cards {
         grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+      }
+      article {
+        padding: 1.5rem;
+      }
+      article span {
+        font-size: 2rem;
+      }
+      h3 {
+        font-size: 1.125rem;
+      }
+      article p {
+        font-size: 0.9375rem;
       }
     }
 
@@ -113,6 +125,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
       padding: 1.25rem 1.25rem 0.5rem;
       font-weight: 700;
       font-size: 1.125rem;
+      color: var(--texto);
     }
     th,
     td {
@@ -128,12 +141,13 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
     tbody th {
       text-align: left;
       font-weight: 500;
+      color: var(--texto);
     }
     tbody tr:last-child > * {
       border-bottom: 0;
     }
     .propia {
-      background: #ecfdf5;
+      background: var(--propia-bg);
     }
     thead .propia {
       color: var(--verde-oscuro);

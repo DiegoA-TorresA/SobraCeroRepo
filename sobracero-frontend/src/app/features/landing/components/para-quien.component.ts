@@ -55,15 +55,15 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
       padding: 2rem 1.75rem;
       border-radius: 20px;
       border: 1px solid var(--borde);
-      background: var(--fondo);
+      background: var(--superficie);
     }
     .seg--comercio {
-      background: #fff7ed;
-      border-color: #fed7aa;
+      background: var(--seg-comercio-bg);
+      border-color: var(--seg-comercio-borde);
     }
     .seg--organizacion {
-      background: #ecfdf5;
-      border-color: #a7f3d0;
+      background: var(--seg-org-bg);
+      border-color: var(--seg-org-borde);
     }
     .seg__icono {
       font-size: 2.5rem;
@@ -71,6 +71,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
     h3 {
       margin: 0.75rem 0 0.25rem;
       font-size: 1.375rem;
+      color: var(--texto);
     }
     .seg__lema {
       margin: 0 0 1.25rem;
@@ -91,7 +92,7 @@ import { SeccionTituloComponent } from './seccion-titulo.component';
     li {
       padding-left: 1.75rem;
       position: relative;
-      color: #374151;
+      color: var(--texto);
     }
     li::before {
       content: '✓';

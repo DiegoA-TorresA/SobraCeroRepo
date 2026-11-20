@@ -36,27 +36,44 @@ import { RouterLink } from '@angular/router';
       align-items: center;
       padding: 2rem 1.5rem;
       border-radius: 24px;
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
+      background: var(--cta-caja-bg);
+      border: 1px solid var(--cta-caja-borde);
     }
     h2 {
       margin: 0;
       font-size: clamp(1.5rem, 3.5vw, 2.125rem);
       font-weight: 800;
+      color: var(--texto);
     }
     p {
       margin: 0.5rem 0 0;
-      color: #4b5563;
+      color: var(--texto-suave);
       font-size: 1.0625rem;
     }
     .cta__botones {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: center;
       gap: 0.75rem;
+      width: 100%;
     }
     .cta__btn {
       min-height: 52px;
       padding: 0 1.5rem;
+      font-size: 1.0625rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+    @media (max-width: 540px) {
+      .cta__botones {
+        gap: 0.5rem;
+      }
+      .cta__btn {
+        flex: 1 1 0;
+        min-height: 48px;
+        padding: 0.5rem clamp(0.375rem, 2vw, 0.75rem);
+        font-size: clamp(0.75rem, 3.2vw, 0.9375rem);
+      }
     }
     @media (min-width: 900px) {
       .cta__caja {

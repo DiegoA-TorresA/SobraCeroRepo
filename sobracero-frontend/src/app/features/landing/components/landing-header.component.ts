@@ -49,7 +49,7 @@ import { SesionService } from '@core/auth/sesion.service';
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.92);
+      background: var(--lh-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--borde);
     }
