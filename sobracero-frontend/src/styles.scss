@@ -458,6 +458,15 @@ html.pp-bloqueo body {
   }
 }
 
+/* Hojas de la escena de la portada (creadas por JS, sin atributo de encapsulación) */
+app-hero .hoja {
+  position: absolute;
+  z-index: 3;
+  font-size: 18px;
+  line-height: 1;
+  pointer-events: none;
+}
+
 /* Movimiento reducido: menos y más suave, no cero. Se conserva la opacidad, se quita el desplazamiento. */
 @media (prefers-reduced-motion: reduce) {
   :root {

@@ -11,3 +11,4 @@ export * from './ui/mapa-selector.component';
 export * from './ui/dialogo.component';
 export * from './pipes/porcentaje-descuento.pipe';
 export * from './ui/revelar.directive';
+export * from './ui/celebracion';

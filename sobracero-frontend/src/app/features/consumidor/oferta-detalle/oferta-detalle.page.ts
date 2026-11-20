@@ -1,5 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, computed, inject, input, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+  untracked,
+  viewChild,
+} from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { environment } from '@env/environment';
@@ -12,6 +22,7 @@ import { KgPipe } from '@shared/pipes/kg.pipe';
 import { PorcentajeDescuentoPipe } from '@shared/pipes/porcentaje-descuento.pipe';
 import { SolesPipe } from '@shared/pipes/soles.pipe';
 import { SpinnerComponent } from '@shared/ui/spinner.component';
+import { lanzarCelebracion } from '@shared/ui/celebracion';
 
 interface OpcionPago {
   valor: MetodoPago;
@@ -71,6 +82,15 @@ export class OfertaDetallePage {
   protected readonly pagando = signal(false);
   protected readonly errorPago = signal<string | null>(null);
   protected readonly reserva = signal<ReservaVista | null>(null);
+  private readonly codigoEl = viewChild<ElementRef<HTMLElement>>('codigoEl');
+
+  constructor() {
+    // Momento poco frecuente y de logro: ráfaga de hojas en cuanto aparece el código de reserva
+    effect(() => {
+      const el = this.codigoEl();
+      if (el) untracked(() => requestAnimationFrame(() => lanzarCelebracion(el.nativeElement)));
+    });
+  }
 
   protected readonly total = computed(
     () => (this.oferta.value()?.precioDescuento ?? 0) * this.cantidad(),
